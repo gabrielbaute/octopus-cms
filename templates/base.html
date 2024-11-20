@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Tu Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+</head>
+<body>  
+  <div class="container">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{{ url_for('index') }}">
+            <img width="45" height="160" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
+        </a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="{{ url_for('index') }}">
+              Home
+          </a>
+    
+          <a class="navbar-item" href="{{ url_for('blog') }}">
+              Blog
+          </a>
+    
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              More
+            </a>
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="{{ url_for('about') }}">
+                About
+              </a>
+              <a class="navbar-item" href="{{ url_for('contact') }}">
+                Contact
+              </a>
+              <a class="navbar-item" href="{{ url_for('subscribe') }}">
+                Subscribe
+            </a>
+            </div>
+          </div>
+        </div>
+    
+        <div class="navbar-end">
+          <div class="navbar-item">
+            {% if current_user.is_authenticated %}
+              <div class="navbar-item">
+                <p>Hola, {{ current_user.username }}!</p>
+              </div>
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                  More
+                </a>
+                <div class="navbar-dropdown">
+                  <a class="navbar-item" href="{{ url_for('new_post') }}">
+                      New Post
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('register') }}">
+                      Register new user
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('contact_messages') }}">
+                      Contact messages
+                  </a>
+                  <a class="navbar-item" href="{{ url_for('send_newsletter_route') }}">
+                    Send a newsletter
+                  </a>
+                </div>
+              </div>
+              <div class="navbar-item">
+                <a class="button is-light" href="{{ url_for('logout') }}">Cerrar sesión</a>
+              </div>
+            {% else %}
+              <a class="button is-light"  href="{{ url_for('login') }}">
+                Log in
+              </a>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <!-- Flash messages -->
+  <div class="container">
+    <div class="section">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <article class="message">
+              <div class="message-header">
+                <p>Hi there!</p>
+                <button class="delete" aria-label="delete"></button>
+              </div>
+              <div class="message-body">
+                <div class="notification is-{{ category }}">
+                  {{ message }}
+                </div>
+              </div>
+            </article>  
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+    {% block content %}
+    
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>© 2024 Tu Blog. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>

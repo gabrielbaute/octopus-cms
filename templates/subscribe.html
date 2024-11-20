@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container is-max-tablet">
+    <section class="section is-medium">
+        <h1 class="title is-2">Suscribirse a la Newsletter</h1>
+        <form method="POST" action="" class="box">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                <label class="label">{{ form.name.label }}</label>
+                <div class="control">
+                    {{ form.name(class="input", type="text", placeholder="Tu nombre") }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">{{ form.email.label }}</label>
+                <div class="control">
+                    {{ form.email(class="input", type="email", placeholder="Tu correo electrónico") }}
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

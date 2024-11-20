@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container is-max-desktop">
+    <section class="section is-medium">
+        <h1 class="title is-2">Enviar Newsletter</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="field">
+                <label class="label">Asunto</label>
+                <div class="control">
+                    <input class="input" type="text" name="subject" placeholder="Asunto del correo">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary" type="submit">Enviar</button>
+                </div>
+            </div>
+        </form>
+    </section>
+</div>
+{% endblock %}

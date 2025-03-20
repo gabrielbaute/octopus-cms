@@ -8,7 +8,7 @@ from database import db
 from database.models import User
 from loadadmin import create_admin_user
 import markdown
-import routes
+import routes.routes as routes
 
 # Cargando variables de entorno:
 load_dotenv()

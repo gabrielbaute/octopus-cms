@@ -1,5 +1,6 @@
 from database import db
-from database.models import User
+from database.models import User, ContactMessage
+from forms import RegistrationForm, NewsletterForm
 from roles import admin_required
 from mail import send_newsletter
 

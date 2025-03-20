@@ -1,5 +1,6 @@
 from database import db
-from database.models import Post, ContactMessage
+from database.models import Post, ContactMessage, Subscriber
+from forms import ContactForm, SubscriptionForm
 
 import markdown
 from datetime import datetime

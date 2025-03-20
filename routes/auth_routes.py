@@ -1,5 +1,6 @@
 from database import db
 from database.models import User
+from forms import LoginForm
 
 import markdown
 from flask_bcrypt import Bcrypt 
@@ -10,6 +11,7 @@ from flask import(
     url_for,
     render_template,
     flash,
+    request
 )
 
 auth_bp = Blueprint('auth', __name__, template_folder='templates')
@@ -20,7 +22,7 @@ def login():
         return redirect(url_for('index'))
     form = LoginForm()
     if form.validate_on_submit():
-        bcrypt = Bcrypt(app)
+        bcrypt = Bcrypt()
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)

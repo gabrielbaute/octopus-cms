@@ -3,7 +3,8 @@ import os
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
-from models import db, Subscriber, Post
+from database.models import Subscriber, Post
+from database import db
 
 # Cargar variables de entorno
 load_dotenv()

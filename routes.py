@@ -1,7 +1,8 @@
 from flask import render_template, request, redirect, url_for, flash, abort
 from flask_login import login_user, current_user, logout_user, login_required
 from forms import LoginForm, RegistrationForm, NewPostForm, ContactForm, SubscriptionForm, NewsletterForm
-from models import db, User, Post, ContactMessage, Subscriber
+from database import db
+from database.models import User, Post, ContactMessage, Subscriber
 from roles import admin_required, author_required
 from mail import send_newsletter
 from datetime import datetime

@@ -1,4 +1,5 @@
-from models import User, db
+from database import db
+from database.models import User
 import os
 from flask_bcrypt import Bcrypt
 

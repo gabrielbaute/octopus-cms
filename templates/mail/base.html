@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ subject }}{% endblock %}</title>
+    <style>
+        /* Estilos generales */
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-color: #f9f9f9;
+          color: #333;
+      }
+      .email-container {
+          max-width: 600px;
+          margin: 0 auto;
+          background: #ffffff;
+          border: 1px solid #D9D9D9;
+          border-radius: 8px;
+          overflow: hidden;
+      }
+      /* Encabezado */
+      .email-header {
+          background-color: #002442;
+          color: #ffffff;
+          text-align: center;
+          padding: 1rem;
+      }
+      .email-header img {
+          max-height: 50px;
+      }
+      /* Cuerpo */
+      .email-body {
+          padding: 1.5rem;
+      }
+      .email-body h1 {
+          color: #002442;
+          font-size: 24px;
+          margin-bottom: 1rem;
+      }
+      .email-body p {
+          line-height: 1.6;
+          margin-bottom: 1rem;
+      }
+      .button {
+          display: inline-block;
+          background-color: #B69E60;
+          color: #ffffff;
+          text-decoration: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          margin-top: 1rem;
+          font-weight: bold;
+      }
+      .button:hover {
+          background-color: #a78850;
+      }
+      /* Footer */
+      .email-footer {
+          background-color: #D9D9D9;
+          text-align: center;
+          padding: 1rem;
+          font-size: 0.9rem;
+      }
+      .email-footer a {
+          text-decoration: none;
+          color: #002442;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      
+      <!-- Encabezado -->
+      <div class="email-header">
+        <h1>{% block header %}Notificación{% endblock %}</h1>
+      </div>
+
+      <!-- Cuerpo -->
+      <div class="email-body">
+        {% block content %}{% endblock %}
+      </div>
+
+      <!-- Footer -->
+      <div class="email-footer">
+        <p>¿No reconoces esta actividad? <a href="{{ support_url }}">Contáctanos</a></p>
+        <p>&copy; {{ year }} {{ app_name }}. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </body>
+</html>

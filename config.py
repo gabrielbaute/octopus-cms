@@ -17,7 +17,7 @@ class Config:
     
     # Flask server
     BASEDIR=BASE_DIR
-    BLOG_NAME=os.getenv('APP_NAME', 'MyApp')
+    APP_NAME=os.getenv('APP_NAME', 'MyApp')
     PORT=os.environ.get("PORT")
     DEBUG=os.environ.get("DEBUG")
     SCHEDULER_API_ENABLED=os.environ.get("SCHEDULER_API_ENABLED") or True

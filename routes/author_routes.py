@@ -1,10 +1,13 @@
 from flask import Blueprints, render_template, request, redirect, url_for, flash, abort
 from flask_login import current_user, login_required
+from datetime import datetime
+
 from forms import NewPostForm
 from database import db
 from database.models import Post
+from mail import send_newsletter_mail
 from roles import author_required
-from datetime import datetime
+
 
 author_bp = Blueprints('author', __name__, template_folder='templates')
 
@@ -14,13 +17,20 @@ author_bp = Blueprints('author', __name__, template_folder='templates')
 @author_required
 def new_post():
     form = NewPostForm()
+
     if form.validate_on_submit():
         publish_date = form.publish_date.data if form.publish_date.data else datetime.utcnow()
         post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id, publish_date=publish_date)
+    
         db.session.add(post)
         db.session.commit()
+    
         flash('Your post has been created!', 'success')
+        send_newsletter_mail(post)
+        print("Envio de correos al publicarse el post")
+    
         return redirect(url_for('blog'))
+    
     return render_template('new_post.html', title='Nuevo Post', form=form)
 
 @author_bp.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])

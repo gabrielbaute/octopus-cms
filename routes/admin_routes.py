@@ -1,12 +1,12 @@
 from database import db
-from database.models import User, ContactMessage
+from database.models import User, ContactMessage, Post
 from forms import RegistrationForm, NewsletterForm
 from roles import admin_required
-from mail import send_newsletter
+from mail import send_newsletter_mail
 
 import markdown
 from flask_bcrypt import Bcrypt 
-from flask_login import current_user, logout_user, login_required, a
+from flask_login import current_user, logout_user, login_required
 from flask import(
     Blueprint,
     redirect,
@@ -39,7 +39,7 @@ def register():
             flash('The user account has been created!', 'success')
             return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
-
+"""
 @admin_bp.route('/send_newsletter', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -48,11 +48,11 @@ def send_newsletter_route():
     if request.method == 'POST':
         subject = request.form['subject']
         html_template_path = 'templates/newsletter.html'
-        send_newsletter(subject, html_template_path, app.app_context())
+        send_newsletter_mail(post)
         flash('Newsletter enviado exitosamente.', 'success')
         return redirect(url_for('index'))
     return render_template('send_newsletter.html', form=form)
-
+"""
 @admin_bp.route('/contact-messages')
 @login_required
 @admin_required

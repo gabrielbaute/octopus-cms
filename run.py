@@ -5,4 +5,10 @@ from waitress import serve
 app=create_app()
 
 if __name__ == "__main__":
-    serve(app, host='0.0.0.0', port=Config.PORT)
+
+    if Config.DEBUG == 'True':
+        app.run(debug=Config.DEBUG, port=Config.PORT)
+    
+    else:
+        serve(app, host='0.0.0.0', port=Config.PORT)
+    

@@ -5,6 +5,8 @@ from config import Config
 from database import init_db, db
 from database.models import User
 from mail import mail
+from server_logging import setup_logging
+
 from server.routes import register_blueprints
 from server.server_extensions import login_manager
 from server.loadadmin import create_admin_user
@@ -24,6 +26,7 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = 'auth.login'
     migrate = Migrate(app, db)
+    setup_logging(app)
 
     @login_manager.user_loader
     def load_user(user_id):

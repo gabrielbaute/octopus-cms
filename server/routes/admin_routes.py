@@ -5,7 +5,7 @@ from server.roles import admin_required
 from mail import send_newsletter_mail
 
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import current_user, logout_user, login_required
+from flask_login import current_user, login_required
 from flask import(
     Blueprint,
     redirect,

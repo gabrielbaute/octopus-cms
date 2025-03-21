@@ -2,8 +2,7 @@ from database import db
 from database.models import User
 from server.forms import LoginForm
 
-from flask_bcrypt import Bcrypt 
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
 from flask import(
     Blueprint,

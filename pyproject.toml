@@ -1,0 +1,16 @@
+[project]
+name = "octopus-cms"
+version = "0.1.0"
+description = "Un CMS modular construido con Flask"
+authors = [
+    { name = "Gabriel Fernando", email = "gabrielbaute@gmail.com" }
+]
+dependencies = [
+    "flask",
+    "waitress",
+    "python-dotenv",
+    "WTForms",
+    "Markdown",
+    "python-slugify"
+]
+license = "MIT"

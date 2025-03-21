@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "${PORT:-5000}:${PORT:-5000}"
+    environment:
+      PORT: ${PORT:-5000}
+      DEBUG: ${DEBUG:-False}
+      SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI:-sqlite:////app/instance/yourdatabase.db}
+      SECRET_KEY: ${SECRET_KEY:-una_clave_secreta_segura}

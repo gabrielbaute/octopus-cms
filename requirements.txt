@@ -1,6 +1,5 @@
 alembic==1.14.0
 Flask==3.1.0
-Flask_Bcrypt==1.0.1
 Flask_Login==0.6.3
 flask_mail==0.10.0
 Flask_Migrate==4.0.7
@@ -12,3 +11,4 @@ python-slugify==8.0.4
 SQLAlchemy==2.0.36
 waitress==3.0.2
 WTForms==3.2.1
+email_validator==2.2.0

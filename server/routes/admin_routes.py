@@ -22,7 +22,7 @@ admin_bp = Blueprint('admin', __name__, template_folder='templates')
 @login_required
 @admin_required
 def register():
-    bcrypt = Bcrypt(admin_bp)
+    bcrypt = Bcrypt()
     form = RegistrationForm()
     if form.validate_on_submit():
         user_by_username = User.query.filter_by(username=form.username.data).first()

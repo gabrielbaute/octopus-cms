@@ -3,9 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Tu Blog{% endblock %}</title>
+    <title>{% block title %}{{app_name}}{% endblock %}</title>
+  
+    <!-- Estilos -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='images/apple-touch-icon.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+  
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 <body>  
@@ -13,7 +22,7 @@
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" href="{{ url_for('main.index') }}">
-            <img width="45" height="160" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
+            <img width="36" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
           <span aria-hidden="true"></span>
@@ -77,10 +86,10 @@
                 </div>
               </div>
               <div class="navbar-item">
-                <a class="button is-light" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+                <a class="button is-warning" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
               </div>
             {% else %}
-              <a class="button is-light"  href="{{ url_for('auth.login') }}">
+              <a class="button is-primary"  href="{{ url_for('auth.login') }}">
                 Log in
               </a>
             </div>
@@ -119,7 +128,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="content has-text-centered">
-            <p>© 2024 Tu Blog. Todos los derechos reservados.</p>
+            <p>© 2024 {{app_name}}. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>

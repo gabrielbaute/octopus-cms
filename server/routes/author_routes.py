@@ -1,15 +1,15 @@
-from flask import Blueprints, render_template, request, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
 from flask_login import current_user, login_required
 from datetime import datetime
 
-from forms import NewPostForm
+from server.forms import NewPostForm
 from database import db
 from database.models import Post
 from mail import send_newsletter_mail
 from server.roles import author_required
 
 
-author_bp = Blueprints('author', __name__, template_folder='templates')
+author_bp = Blueprint('author', __name__, template_folder='templates')
 
 # Rutas de gestión de posts
 @author_bp.route('/new-post', methods=['GET', 'POST'])

@@ -39,7 +39,7 @@ def register():
             flash('The user account has been created!', 'success')
             return redirect(url_for('auth.login'))
     return render_template('register.html', title='Register', form=form)
-"""
+
 @admin_bp.route('/send_newsletter', methods=['GET', 'POST'])
 @login_required
 @admin_required
@@ -48,11 +48,11 @@ def send_newsletter_route():
     if request.method == 'POST':
         subject = request.form['subject']
         html_template_path = 'templates/newsletter.html'
-        send_newsletter_mail(post)
+        #send_newsletter_mail(post)
         flash('Newsletter enviado exitosamente.', 'success')
         return redirect(url_for('index'))
     return render_template('send_newsletter.html', form=form)
-"""
+
 @admin_bp.route('/contact-messages')
 @login_required
 @admin_required

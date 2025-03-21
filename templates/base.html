@@ -62,16 +62,16 @@
                   More
                 </a>
                 <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{{ url_for('new_post') }}">
+                  <a class="navbar-item" href="{{ url_for('author.new_post') }}">
                       New Post
                   </a>
-                  <a class="navbar-item" href="{{ url_for('register') }}">
+                  <a class="navbar-item" href="{{ url_for('admin.register') }}">
                       Register new user
                   </a>
-                  <a class="navbar-item" href="{{ url_for('contact_messages') }}">
+                  <a class="navbar-item" href="{{ url_for('admin.contact_messages') }}">
                       Contact messages
                   </a>
-                  <a class="navbar-item" href="{{ url_for('send_newsletter_route') }}">
+                  <a class="navbar-item" href="{{ url_for('admin.send_newsletter_route') }}">
                     Send a newsletter
                   </a>
                 </div>

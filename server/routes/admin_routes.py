@@ -4,8 +4,7 @@ from server.forms import RegistrationForm, NewsletterForm
 from server.roles import admin_required
 from mail import send_newsletter_mail
 
-import markdown
-from flask_bcrypt import Bcrypt 
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import current_user, logout_user, login_required
 from flask import(
     Blueprint,
@@ -13,7 +12,8 @@ from flask import(
     url_for,
     render_template,
     flash,
-    request
+    request,
+    current_app
 )
 
 admin_bp = Blueprint('admin', __name__, template_folder='templates')
@@ -22,20 +22,34 @@ admin_bp = Blueprint('admin', __name__, template_folder='templates')
 @login_required
 @admin_required
 def register():
-    bcrypt = Bcrypt()
     form = RegistrationForm()
+    new_username = form.username.data
+    new_email = form.email.data
+    new_password = form.password.data
+    role = form.role.data
+
     if form.validate_on_submit():
-        user_by_username = User.query.filter_by(username=form.username.data).first()
-        user_by_email = User.query.filter_by(email=form.email.data).first()
+        user_by_username = User.query.filter_by(username=new_username).first()
+        user_by_email = User.query.filter_by(email=new_email).first()
+        
         if user_by_username:
             flash('Username already exists. Please choose a different one.', 'danger')
+        
         elif user_by_email:
             flash('Email already exists. Please choose a different one.', 'danger')
+        
         else:
-            hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-            user = User(username=form.username.data, email=form.email.data, password=hashed_password, role=form.role.data)
-            db.session.add(user)
-            db.session.commit()
+            hashed_password = generate_password_hash(new_password)
+            user = User(username=new_username, email=new_email, password=hashed_password, role=role)
+
+            try:
+                db.session.add(user)
+                db.session.commit()
+                current_app.logger.info(f"Nuevo usuario creado por {current_user.email}. Username: {new_username}, Email: {new_email}, Rol: {role}")
+            
+            except Exception as e:
+                current_app.logger.error(f"Error al crear nuevo usuario: {e}")
+
             flash('The user account has been created!', 'success')
             return redirect(url_for('auth.login'))
     return render_template('register.html', title='Register', form=form)

@@ -18,9 +18,12 @@ auth_bp = Blueprint('auth', __name__, template_folder='templates')
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
+    
     form = LoginForm()
+    
     if form.validate_on_submit():
         bcrypt = Bcrypt()
         user = User.query.filter_by(email=form.email.data).first()
@@ -28,7 +31,7 @@ def login():
             login_user(user, remember=form.remember.data)
             flash('Login successful', 'success')
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('index'))
+            return redirect(next_page) if next_page else redirect(url_for('main.index'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -37,4 +40,4 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))

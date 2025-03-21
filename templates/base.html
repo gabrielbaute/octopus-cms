@@ -12,7 +12,7 @@
   <div class="container">
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="{{ url_for('index') }}">
+        <a class="navbar-item" href="{{ url_for('main.index') }}">
             <img width="45" height="160" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
         </a>
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -25,11 +25,11 @@
     
       <div id="navbarBasicExample" class="navbar-menu">
         <div class="navbar-start">
-          <a class="navbar-item" href="{{ url_for('index') }}">
+          <a class="navbar-item" href="{{ url_for('main.index') }}">
               Home
           </a>
     
-          <a class="navbar-item" href="{{ url_for('blog') }}">
+          <a class="navbar-item" href="{{ url_for('main.blog') }}">
               Blog
           </a>
     
@@ -38,13 +38,13 @@
               More
             </a>
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="{{ url_for('about') }}">
+              <a class="navbar-item" href="{{ url_for('main.about') }}">
                 About
               </a>
-              <a class="navbar-item" href="{{ url_for('contact') }}">
+              <a class="navbar-item" href="{{ url_for('main.contact') }}">
                 Contact
               </a>
-              <a class="navbar-item" href="{{ url_for('subscribe') }}">
+              <a class="navbar-item" href="{{ url_for('main.subscribe') }}">
                 Subscribe
             </a>
             </div>
@@ -77,10 +77,10 @@
                 </div>
               </div>
               <div class="navbar-item">
-                <a class="button is-light" href="{{ url_for('logout') }}">Cerrar sesión</a>
+                <a class="button is-light" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
               </div>
             {% else %}
-              <a class="button is-light"  href="{{ url_for('login') }}">
+              <a class="button is-light"  href="{{ url_for('auth.login') }}">
                 Log in
               </a>
             </div>

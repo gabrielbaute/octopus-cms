@@ -29,7 +29,7 @@ def new_post():
         send_newsletter_mail(post)
         print("Envio de correos al publicarse el post")
     
-        return redirect(url_for('blog'))
+        return redirect(url_for('main.blog'))
     
     return render_template('new_post.html', title='Nuevo Post', form=form)
 
@@ -46,7 +46,7 @@ def edit_post(post_id):
         post.content = form.content.data
         db.session.commit()
         flash('Your post has been updated!', 'success')
-        return redirect(url_for('blog'))
+        return redirect(url_for('main.blog'))
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
@@ -62,4 +62,4 @@ def delete_post(post_id):
     db.session.delete(post)
     db.session.commit()
     flash('Your post has been deleted!', 'success')
-    return redirect(url_for('blog'))
+    return redirect(url_for('main.blog'))

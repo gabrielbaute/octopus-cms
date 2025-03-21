@@ -31,6 +31,11 @@ class Config:
     SQLALCHEMY_DATABASE_URI=os.environ.get('SQLALCHEMY_DATABASE_URI') or f'sqlite:///{os.path.join(BASE_DIR, "yourdatabase.db")}'
     SQLALCHEMY_TRACK_MODIFICATIONS=os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS') or False
 
+    # Encriptado
+    SECRET_KEY=os.environ.get('SECRET_KEY') or 'una_clave_secreta_segura'
+    SECURITY_PASSWORD_SALT=os.getenv('SECURITY_PASSWORD_SALT')
+    JWT_SECRET_KEY=os.getenv("JWT_SECRET_KEY")
+
     # Configuración de Flask-Mail
     MAIL_SERVER = os.environ.get('MAIL_SERVER')
     MAIL_PORT = os.environ.get('MAIL_PORT')

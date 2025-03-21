@@ -37,7 +37,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             flash('The user account has been created!', 'success')
-            return redirect(url_for('login'))
+            return redirect(url_for('auth.login'))
     return render_template('register.html', title='Register', form=form)
 """
 @admin_bp.route('/send_newsletter', methods=['GET', 'POST'])

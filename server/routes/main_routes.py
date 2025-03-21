@@ -17,7 +17,7 @@ main_bp = Blueprint('main', __name__, template_folder='templates')
 # Rutas de la navegación de la app
 @main_bp.route('/')
 def index():
-    return redirect(url_for('blog'))
+    return redirect(url_for('main.blog'))
 
 @main_bp.route('/about')
 def about():
@@ -49,7 +49,7 @@ def contact():
         db.session.add(contact_message)
         db.session.commit()
         flash('Tu mensaje ha sido enviado. ¡Gracias por contactarnos!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     return render_template('contact.html', title='Contacto', form=form)
 
 @main_bp.route('/subscribe', methods=['GET', 'POST'])
@@ -60,5 +60,5 @@ def subscribe():
         db.session.add(subscriber)
         db.session.commit()
         flash('¡Gracias por suscribirte a nuestra newsletter!', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('main.index'))
     return render_template('subscribe.html', form=form)

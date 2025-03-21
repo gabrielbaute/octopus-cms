@@ -26,7 +26,7 @@
                             <br>
                             {{ post.content_summary|safe }}
                             <br>
-                            <a href="{{ url_for('post', slug=post.slug) }}">Leer más...</a>
+                            <a href="{{ url_for('main.post', slug=post.slug) }}">Leer más...</a>
                         </p>
                     </div>
                     {% if current_user.is_authenticated and current_user.id == post.user_id %}

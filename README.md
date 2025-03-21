@@ -1,5 +1,10 @@
-# Blog en Flask
-
+# Octopus CMS
+![License](https://img.shields.io/badge/License-MIT-blue.svg)
+![Python](https://img.shields.io/badge/Python-3.13-blue.svg)
+![Flask](https://img.shields.io/badge/Framework-Flask-green.svg)
+![Docker](https://img.shields.io/badge/Container-Docker-blue.svg)
+![Bulma](https://img.shields.io/badge/CSS%20Framework-Bulma-00D1B2.svg)
+![Status](https://img.shields.io/badge/Status-En%20desarrollo-yellow.svg)
 ## Descripción
 
 Este proyecto de blog, desarrollado con **Flask** como backend en Python y **Bulma** como framework CSS, está diseñado para ofrecer una experiencia de usuario robusta y funcional. El proyecto incorpora una variedad de características avanzadas y se centra en la gestión eficiente de contenido y usuarios.
@@ -23,8 +28,8 @@ El proyecto está completamente centrado en Python, utilizando Flask como framew
 
 1. Clonar el repositorio:
    ```sh
-   git clone https://github.com/tu-usuario/blog-project.git
-   cd blog-project
+   git clone https://github.com/gabrielbaute/octopus-cms.git
+   cd octopus-cms
    ```
 
 2. Crear un entorno virtual y activar:
@@ -60,13 +65,13 @@ El proyecto está completamente centrado en Python, utilizando Flask como framew
 ## Uso
 1. Ejecutar la aplicación:
     ```sh
-    flask run
+    python run.py
     ```
 
-2. Abrir el navegador y navegar a `http://localhost:5000` para ver la aplicación en funcionamiento.
+2. Abrir el navegador y navegar a `http://localhost:5000` (o el puerto que hayas designado en las variables de entorno) para ver la aplicación en funcionamiento.
 
 ## Contribuciones
 Si deseas contribuir a este proyecto, por favor abre un issue o envía un pull request. Este proyecto se encuentra en desarrollo activo, y se planea incorporar más funcionalidades en el futuro. ¡Todas las ideas y aportes son bienvenidos!
 
 ## Licencia
-Este proyecto está bajo la Licencia MIT. Ver el archivo LICENSE para más detalles.
+Este proyecto está bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.

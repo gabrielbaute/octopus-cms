@@ -45,6 +45,9 @@ def create_app():
     # Hacer que APP_NAME esté disponible globalmente en las plantillas
     @app.context_processor
     def inject_app_name():
-        return {'app_name': app.config['APP_NAME']}
+        return {
+            "app_name": app.config["APP_NAME"],
+            "cms_version": app.config["CMS_VERSION"]
+            }
 
     return app

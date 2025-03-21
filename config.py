@@ -16,25 +16,26 @@ class Config:
     """Configuración de la aplicación Flask."""
     
     # Flask server
-    BASEDIR=BASE_DIR
-    APP_NAME=os.getenv('APP_NAME', 'MyApp')
-    PORT=os.environ.get("PORT")
-    DEBUG=os.environ.get("DEBUG")
-    SCHEDULER_API_ENABLED=os.environ.get("SCHEDULER_API_ENABLED") or True
+    BASEDIR = BASE_DIR
+    APP_NAME = os.getenv('APP_NAME', 'Octopus')
+    CMS_VERSION = "0.1.0"
+    PORT = os.environ.get("PORT")
+    DEBUG = os.environ.get("DEBUG")
+    SCHEDULER_API_ENABLED = os.environ.get("SCHEDULER_API_ENABLED") or True
 
     # Variables de entorno para el administrador
-    ADMIN_USERNAME=os.environ.get('ADMIN_USERNAME') or 'admin'
-    ADMIN_EMAIL=os.environ.get('ADMIN_EMAIL') or 'admin@example.com'
-    ADMIN_PASSWORD=os.environ.get('ADMIN_PASSWORD') or 'admin_password'
+    ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME') or 'admin'
+    ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL') or 'admin@example.com'
+    ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD') or 'admin_password'
 
     # SQLAlchemy
-    SQLALCHEMY_DATABASE_URI=os.environ.get('SQLALCHEMY_DATABASE_URI') or f'sqlite:///{os.path.join(BASE_DIR, "yourdatabase.db")}'
-    SQLALCHEMY_TRACK_MODIFICATIONS=os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS') or False
+    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI') or f'sqlite:///{os.path.join(BASE_DIR, "octopus_cms.db")}'
+    SQLALCHEMY_TRACK_MODIFICATIONS = os.environ.get('SQLALCHEMY_TRACK_MODIFICATIONS') or False
 
     # Encriptado
-    SECRET_KEY=os.environ.get('SECRET_KEY') or 'una_clave_secreta_segura'
-    SECURITY_PASSWORD_SALT=os.getenv('SECURITY_PASSWORD_SALT')
-    JWT_SECRET_KEY=os.getenv("JWT_SECRET_KEY")
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'una_clave_secreta_segura'
+    SECURITY_PASSWORD_SALT = os.getenv('SECURITY_PASSWORD_SALT')
+    JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 
     # Configuración de Flask-Mail
     MAIL_SERVER = os.environ.get('MAIL_SERVER')

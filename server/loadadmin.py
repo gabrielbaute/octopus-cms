@@ -4,6 +4,7 @@ from config import Config
 from .server_extensions import bcrypt
 
 def create_admin_user():
+    """Crea el usuario admin, al iniciar el server la primera vez"""
     admin_username = Config.ADMIN_USERNAME
     admin_email = Config.ADMIN_EMAIL
     admin_password = Config.ADMIN_PASSWORD

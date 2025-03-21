@@ -20,7 +20,9 @@
             <article class="media">
                 <div class="media-content">
                     <div class="content">
-                        <h2 class="title is-2">{{ post.title }}</h2>
+                        <a href="{{ url_for('main.post', slug=post.slug) }}">
+                            <h2 class="title is-2">{{ post.title }}</h2>
+                        </a>
                         <small>Escrito por <strong>{{ post.author.username }}</strong> el {{ post.date_posted.strftime('%d %b %Y') }}</small>
                         <p>
                             <br>

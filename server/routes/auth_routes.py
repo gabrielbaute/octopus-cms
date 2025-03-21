@@ -1,6 +1,6 @@
 from database import db
 from database.models import User
-from forms import LoginForm
+from server.forms import LoginForm
 
 import markdown
 from flask_bcrypt import Bcrypt 

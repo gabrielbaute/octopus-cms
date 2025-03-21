@@ -6,7 +6,7 @@ from forms import NewPostForm
 from database import db
 from database.models import Post
 from mail import send_newsletter_mail
-from roles import author_required
+from server.roles import author_required
 
 
 author_bp = Blueprints('author', __name__, template_folder='templates')

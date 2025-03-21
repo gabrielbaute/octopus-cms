@@ -6,7 +6,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from database import db
 from database.models import User
-from loadadmin import create_admin_user
+from server.loadadmin import create_admin_user
 import markdown
 import routes.routes as routes
 

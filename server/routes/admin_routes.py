@@ -1,7 +1,7 @@
 from database import db
 from database.models import User, ContactMessage, Post
-from forms import RegistrationForm, NewsletterForm
-from roles import admin_required
+from server.forms import RegistrationForm, NewsletterForm
+from server.roles import admin_required
 from mail import send_newsletter_mail
 
 import markdown

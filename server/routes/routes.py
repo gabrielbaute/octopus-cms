@@ -3,7 +3,7 @@ from flask_login import login_user, current_user, logout_user, login_required
 from forms import LoginForm, RegistrationForm, NewPostForm, ContactForm, SubscriptionForm, NewsletterForm
 from database import db
 from database.models import Post
-from roles import author_required
+from server.roles import author_required
 from datetime import datetime
 
 

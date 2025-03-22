@@ -18,118 +18,22 @@
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 </head>
 <body>  
-  <div class="container">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
-        <a class="navbar-item" href="{{ url_for('main.index') }}">
-            <img width="36" src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
-        </a>
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-    
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="{{ url_for('main.index') }}">
-              Home
-          </a>
-    
-          <a class="navbar-item" href="{{ url_for('main.blog') }}">
-              Blog
-          </a>
-    
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
-            </a>
-            <div class="navbar-dropdown">
-              <a class="navbar-item" href="{{ url_for('main.about') }}">
-                About
-              </a>
-              <a class="navbar-item" href="{{ url_for('main.contact') }}">
-                Contact
-              </a>
-              <a class="navbar-item" href="{{ url_for('main.subscribe') }}">
-                Subscribe
-            </a>
-            </div>
-          </div>
-        </div>
-    
-        <div class="navbar-end">
-          <div class="navbar-item">
-            {% if current_user.is_authenticated %}
-              <div class="navbar-item">
-                <p>Hola, {{ current_user.username }}!</p>
-              </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  More
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{{ url_for('author.new_post') }}">
-                      New Post
-                  </a>
-                  <a class="navbar-item" href="{{ url_for('admin.register') }}">
-                      Register new user
-                  </a>
-                  <a class="navbar-item" href="{{ url_for('admin.contact_messages') }}">
-                      Contact messages
-                  </a>
-                  <a class="navbar-item" href="{{ url_for('admin.send_newsletter_route') }}">
-                    Send a newsletter
-                  </a>
-                </div>
-              </div>
-              <div class="navbar-item">
-                <a class="button is-warning" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
-              </div>
-            {% else %}
-              <a class="button is-primary"  href="{{ url_for('auth.login') }}">
-                Log in
-              </a>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-    </nav>
-  </div>
+  <!-- Navbar -->
+  {% include 'partials/_navbar.html' %}
+
   <!-- Flash messages -->
   <div class="container">
     <div class="section">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-          {% for category, message in messages %}
-            <article class="message">
-              <div class="message-header">
-                <p>Hi there!</p>
-                <button class="delete" aria-label="delete"></button>
-              </div>
-              <div class="message-body">
-                <div class="notification is-{{ category }}">
-                  {{ message }}
-                </div>
-              </div>
-            </article>  
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
+      {% include 'partials/_flash_messages.html' %}
     </div>
   </div>
-    {% block content %}
-    
-    {% endblock %}
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>© 2025 {{app_name}} Version {{ cms_version }}. Todos los derechos reservados.</p>
-        </div>
-    </footer>
+  <!-- Content -->
+  {% block content %}  
+  {% endblock %}
+    
+  <!-- Footer -->
+  {% include 'partials/_footer.html' %}
+
 </body>
 </html>

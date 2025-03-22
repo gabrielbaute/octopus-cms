@@ -41,6 +41,7 @@ def create_app():
     with app.app_context():
         db.create_all()
         create_admin_user()
+        app.logger.info(f"Server listening on port: {Config.PORT}")
 
     # Hacer que APP_NAME esté disponible globalmente en las plantillas
     @app.context_processor

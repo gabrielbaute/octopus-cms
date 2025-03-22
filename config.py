@@ -21,6 +21,7 @@ class Config:
     CMS_VERSION = "0.1.0"
     PORT = os.environ.get("PORT")
     DEBUG = os.environ.get("DEBUG")
+    LANGUAGE = os.environ.get("LANGUAGE")
     SCHEDULER_API_ENABLED = os.environ.get("SCHEDULER_API_ENABLED") or True
 
     # Variables de entorno para el administrador

@@ -48,7 +48,8 @@ def create_app():
     def inject_app_name():
         return {
             "app_name": app.config["APP_NAME"],
-            "cms_version": app.config["CMS_VERSION"]
+            "cms_version": app.config["CMS_VERSION"],
+            "server_language": app.config["LANGUAGE"]
             }
 
     return app

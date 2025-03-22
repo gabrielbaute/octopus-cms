@@ -35,7 +35,7 @@ def send_newsletter_mail(post):
     Envía un email con el último post publicado de forma masiva a todos los usuarios suscritos
     """
 
-    subscribers = Subscriber.query.all()
+    subscribers = Subscriber.query.get(is_active=True)
     try:
         for subscriber in subscribers:
             newsletter_mail(subscriber, post)

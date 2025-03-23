@@ -1,7 +1,7 @@
 from database import db
 from database.models import User
 from server.forms import LoginForm, ForgotPasswordForm, ResetPasswordForm
-from mail import send_reset_password_email, decode_reset_token
+from mail import send_reset_password_email, decode_reset_token, send_password_change_notification
 
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_login import login_user, current_user, logout_user, login_required
@@ -89,18 +89,15 @@ def reset_password(token):
         password = form.password.data
         user = User.query.get(user_id)
 
-        # Verificar que la contraseña no haya sido utilizada antes
-        for old_password in user.password_history:
-            if check_password_hash(old_password.password_hash, password):
-                flash('No es posible reutilizar una contraseña anterior. Elija una diferente.', 'danger')
-                return redirect(url_for('auth.reset_password', token=token))
-
         # Actualizar la contraseña del usuario
         user.password = generate_password_hash(password, method='pbkdf2:sha256')
 
         db.session.commit()
-        #send_password_change_notification(user, request.remote_addr)
+        send_password_change_notification(user, request.remote_addr)
         flash('Su contraseña ha sido restablecida. Ya puede iniciar sesión.', 'success')
+
+        current_app.logger.info(f"El usuario {user.email} ha cambiado su contraseña exitosamente")
+
         return redirect(url_for('auth.login'))
 
     return render_template('reset_password.html', form=form)

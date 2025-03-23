@@ -1,28 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container is-max-tablet">
-    <section class="section is-medium">
-        <h1 class="title is-2">Suscribirse a la Newsletter</h1>
-        <form method="POST" action="" class="box">
-            {{ form.hidden_tag() }}
-            <div class="field">
-                <label class="label">{{ form.name.label }}</label>
-                <div class="control">
-                    {{ form.name(class="input", type="text", placeholder="Tu nombre") }}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+             <!-- Columna del formulario -->
+            <div class="column is-half">
+                <div class="box">
+                    <h2 class="title is-3 has-text-centered">Suscribirse a la Newsletter</h1>
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        <div class="field">
+                            <label class="label">{{ form.name.label }}</label>
+                            <div class="control">
+                                {{ form.name(class="input", type="text", placeholder="Tu nombre") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form.email.label }}</label>
+                            <div class="control">
+                                {{ form.email(class="input", type="email", placeholder="Tu correo electrónico") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="field">
-                <label class="label">{{ form.email.label }}</label>
-                <div class="control">
-                    {{ form.email(class="input", type="email", placeholder="Tu correo electrónico") }}
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
-                </div>
-            </div>
-        </form>
-    </section>
-</div>
+        </div>
+    </div>
+</section>
 {% endblock %}

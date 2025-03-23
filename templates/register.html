@@ -1,55 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container is-max-tablet">
-    <section class="section is-medium">
-        <h1 class="title is-2">
-            Create new user
-        </h1>
-        <form method="POST" action="" class="box">
-            {{ form.hidden_tag() }}
-            <div class="field">
-                <p class="control has-icons-left has-icons-right">
-                    {{ form.username(class="input is-info", type="text", placeholder="Username") }}
-                </p>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <p class="control has-icons-left">
-                        {{ form.email(class="input is-success", type="email", placeholder="Email") }}
-                        <span class="icon is-medium is-left">
-                            <i class="fas fa-envelope"></i>
-                        </span>
-                    </p>
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <!-- Columna del formulario -->
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title is-2">
+                        Create new user
+                    </h1>
+                    <form method="POST" action="" class="box">
+                    {{ form.hidden_tag() }}
+                    <div class="field">
+                        <p class="control has-icons-left has-icons-right">
+                            {{ form.username(class="input is-info", type="text", placeholder="Username") }}
+                        </p>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <p class="control has-icons-left">
+                                {{ form.email(class="input is-success", type="email", placeholder="Email") }}
+                                <span class="icon is-medium is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <p class="control has-icons-left has-icons-right">
+                                {{ form.password(class="input is-success", type="password", placeholder="Password") }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <p class="control has-icons-left has-icons-right">
+                                {{ form.confirm_password(class="input is-warning", type="password", placeholder="Confirm password") }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <p class="control has-icons-left has-icons-right">
+                                {{ form.role(class="input", type="select") }}
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="field">
+                        <div class="control">
+                            {{ form.submit(class="button is-primary is-medium is-fullwidth", type="submit") }}
+                        </div>
+                    </div>
+                    </form>
                 </div>
             </div>
-            <div class="field">
-                <div class="control">
-                    <p class="control has-icons-left has-icons-right">
-                        {{ form.password(class="input is-success", type="password", placeholder="Password") }}
-                    </p>
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <p class="control has-icons-left has-icons-right">
-                        {{ form.confirm_password(class="input is-warning", type="password", placeholder="Confirm password") }}
-                    </p>
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <p class="control has-icons-left has-icons-right">
-                        {{ form.role(class="input", type="select") }}
-                    </p>
-                </div>
-            </div>
-            <br>
-            <div class="field">
-                <div class="control">
-                    {{ form.submit(class="button is-primary is-medium is-fullwidth", type="submit") }}
-                </div>
-            </div>
-        </form>
-    </section>
-</div>
+        </div>
+    </div>
+</section>
 {% endblock %}

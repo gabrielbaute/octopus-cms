@@ -18,7 +18,7 @@ class RegistrationForm(FlaskForm):
 
 class ForgotPasswordForm(FlaskForm):
     email = StringField('Correo electrónico', validators=[DataRequired(), Email()])
-    submit = SubmitField('Reenvíar link')
+    submit = SubmitField('Enviar link')
 
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('Nueva contraseña', validators=[DataRequired()])

@@ -39,7 +39,7 @@ def send_password_change_notification(user, ip_address):
         # Renderizar la plantilla con los datos
         msg = Message(f'[{appname}] Su contraseña ha sido cambiada!', recipients=[user.email])
         msg.html = render_template(
-            'email_templates/password_changed_notification.html',
+            'mail/password_changed_notification.html',
             username=user.username,
             ip_address=ip_address,
             device=device,

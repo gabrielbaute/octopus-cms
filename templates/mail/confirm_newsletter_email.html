@@ -1,0 +1,14 @@
+{% extends 'mail/base.html' %}
+
+{% block title %}Confirmación de correo electrónico{% endblock %}
+
+{% block header %}Confirme su correo electrónico{% endblock %}
+
+{% block content %}
+<p>Hola {{ subscriber }},</p>
+<p>Gracias por suscribirte a nuestro newsletter, estás a solo un paso más. Requerimos que confirmes tu suscripción y para ello solo debes hacer click en el siguiente enlace de confirmación:</p>
+
+<a href="{{ url_for('main.confirm_subscription', token=token, _external=True) }}" class="button">Confirmar suscripción.</a>
+
+<p>Si no se ha registrado o no reconoce esta acción, por favor ignore este correo electrónico.</p>
+{% endblock %}

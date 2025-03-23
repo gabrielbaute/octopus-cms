@@ -15,7 +15,7 @@ def send_confirmation_newsletter_email(subscriber):
     try:
         token = create_email_token(subscriber.id)
         msg = Message(f'[{appname}] Confirme su suscripción', recipients=[subscriber.email])
-        msg.html = render_template('email/confirm_newsletter_email.html', username=subscriber.name, token=token)
+        msg.html = render_template('mail/confirm_newsletter_email.html', subscriber=subscriber.name, token=token)
         mail.send(msg)
         
         current_app.logger.info(f"Confirmation email sent to {subscriber.email}.")
@@ -31,7 +31,7 @@ def send_reset_password_email(user):
 
         token = create_reset_token(user.id)
         msg = Message(f'[{appname}] Restablecer su contraseña', recipients=[user.email])
-        msg.html = render_template('email/reset_password.html', username=user.username, token=token)
+        msg.html = render_template('mail/reset_password.html', username=user.username, token=token)
         mail.send(msg)
         
         current_app.logger.info(f"Reset password email sent to {user.email}.")

@@ -21,9 +21,7 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">
-                    {{ form.publish_date.label }}
-                </label>
+                <label class="label">{{ form.publish_date.label }}</label>
                 <div class="control">
                     {{ form.publish_date(class="input", type="datetime-local") }}
                 </div>
@@ -36,23 +34,5 @@
         </form>
     </div>
 </div>
-<!-- Script de SimpleMDE -->
-<script>
-    var simplemde = new SimpleMDE({
-        element: document.getElementById("content"),
-        spellChecker: false,
-        toolbar: ["bold", "italic", "strikethrough", "heading", "|", "quote", "unordered-list", "ordered-list", "|", "link", "image", "|", "preview", "side-by-side", "fullscreen"]
-    });
-    console.log("SimpleMDE initialized:", simplemde);
-    // Validar el contenido de SimpleMDE antes de enviar el formulario
-    document.querySelector('form').addEventListener('submit', function(event) {
-        var content = simplemde.value();
-        if (!content) {
-            alert("El contenido del post no puede estar vacío.");
-            event.preventDefault();
-        } else {
-            document.getElementById('content').value = content;
-        }
-    });
-</script>
+{% include '_macros.html' %}
 {% endblock %}

@@ -31,7 +31,10 @@
   <!-- Content -->
   {% block content %}  
   {% endblock %}
-    
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
   <!-- Footer -->
   {% include 'partials/_footer.html' %}
 

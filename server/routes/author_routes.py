@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash, abort
+from flask import Blueprint, render_template, request, redirect, url_for, flash, abort, current_app
 from flask_login import current_user, login_required
 from datetime import datetime
 
@@ -24,10 +24,10 @@ def new_post():
     
         db.session.add(post)
         db.session.commit()
-    
+
+        current_app.logger.info(f"Nueva entrada publicada por {current_user.email}")
         flash('Your post has been created!', 'success')
         send_newsletter_mail(post)
-        print("Envio de correos al publicarse el post")
     
         return redirect(url_for('main.blog'))
     
@@ -44,22 +44,32 @@ def edit_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
+        
         db.session.commit()
+        current_app.logger.info(f"Post editado. Autor: {current_user.email}, Post: {post.title}")
         flash('Your post has been updated!', 'success')
+        
         return redirect(url_for('main.blog'))
+    
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
+
     return render_template('new_post.html', title='Edit Post', form=form)
 
 @author_bp.route('/delete-post/<int:post_id>', methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+    if post.author.id != current_user.id:
         abort(403)  # Forbidden
+
+    post_name = post.title
 
     db.session.delete(post)
     db.session.commit()
+
+    current_app.logger.warning(f"Se ha borrado un post. Titulo: {post_name}, borrado por {current_user.email}")
+
     flash('Your post has been deleted!', 'success')
     return redirect(url_for('main.blog'))

@@ -15,3 +15,12 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     role = SelectField('Role', choices=[('author', 'Author'), ('admin', 'Admin')], validators=[DataRequired()])
     submit = SubmitField('Create')
+
+class ForgotPasswordForm(FlaskForm):
+    email = StringField('Correo electrónico', validators=[DataRequired(), Email()])
+    submit = SubmitField('Reenvíar link')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Nueva contraseña', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirmar nueva contraseña', validators=[DataRequired(), EqualTo('password', message='Passwords must match')])
+    submit = SubmitField('Reestablecer contraseña')

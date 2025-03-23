@@ -15,7 +15,7 @@ def newsletter_mail(subscriber, post):
     try:
         msg = Message(f'[{appname}] Nuevo post!', recipients=[subscriber.email])
         msg.html = render_template(
-            'email/newsletter',
+            'mail/newsletter.html',
             user=subscriber.name,
             post_title=post.title,
             post_author=post.author.username,
@@ -35,9 +35,10 @@ def send_newsletter_mail(post):
     Envía un email con el último post publicado de forma masiva a todos los usuarios suscritos
     """
 
-    subscribers = Subscriber.query.get(is_active=True)
-    try:
-        for subscriber in subscribers:
+    subscribers = Subscriber.query.filter_by(is_active=True).all()
+    
+    for subscriber in subscribers:
+        try:
             newsletter_mail(subscriber, post)
-    except Exception as e:
-        print(f"Error al enviar el newsletter a {subscriber.email}: {e}")
+        except Exception as e:
+            print(f"Error al enviar el newsletter a {subscriber.email}: {e}")

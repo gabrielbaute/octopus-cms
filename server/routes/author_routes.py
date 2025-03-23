@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import current_user, login_required
 from datetime import datetime
 
-from server.forms import NewPostForm
+from server.forms import NewPostForm, EditPostForm
 from database import db
 from database.models import Post
 from mail import send_newsletter_mail
@@ -36,11 +36,19 @@ def new_post():
 @author_bp.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
-    post = Post.query.get_or_404(post_id)
-    if post.author != current_user:
+
+    # Buscar y validar la existencia del post
+    post = Post.query.get(post_id)
+    if not post:
+        flash('El post no existe.', 'danger')
+        return redirect(url_for('main.blog'))
+
+    # Verificar si el usuario actual es el autor del post o un administrador
+    if post.user_id != current_user.id and current_user.role != 'admin':
         abort(403)  # Forbidden
 
-    form = NewPostForm()
+    # Editar el post
+    form = EditPostForm()
     if form.validate_on_submit():
         post.title = form.title.data
         post.content = form.content.data
@@ -51,11 +59,12 @@ def edit_post(post_id):
         
         return redirect(url_for('main.blog'))
     
+    # Trae la data del post y la llena dentro del formulario
     elif request.method == 'GET':
         form.title.data = post.title
         form.content.data = post.content
 
-    return render_template('new_post.html', title='Edit Post', form=form)
+    return render_template('edit_post.html', title='Editar Post', form=form)
 
 @author_bp.route('/delete-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
@@ -63,7 +72,7 @@ def delete_post(post_id):
     # Obtener el post o devolver un error 404 si no existe
     post = Post.query.get_or_404(post_id)
      
-     # Verificar si el usuario actual es el autor del post o un administrador
+    # Verificar si el usuario actual es el autor del post o un administrador
     if post.user_id != current_user.id and current_user.role != 'admin':
         abort(403)  # Forbidden
     

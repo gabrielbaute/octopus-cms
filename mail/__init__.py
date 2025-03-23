@@ -6,3 +6,4 @@ from .tokens_mail_generator import(
     create_reset_token,
     decode_reset_token)
 from .auth_mail import send_confirmation_newsletter_email, send_reset_password_email
+from .notifications_mail import send_welcome_email, send_password_change_notification

@@ -57,19 +57,28 @@ def edit_post(post_id):
 
     return render_template('new_post.html', title='Edit Post', form=form)
 
-@author_bp.route('/delete-post/<int:post_id>', methods=['POST'])
+@author_bp.route('/delete-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def delete_post(post_id):
+    # Obtener el post o devolver un error 404 si no existe
     post = Post.query.get_or_404(post_id)
-    if post.author.id != current_user.id:
+     
+     # Verificar si el usuario actual es el autor del post o un administrador
+    if post.user_id != current_user.id and current_user.role != 'admin':
         abort(403)  # Forbidden
-
+    
+    # Guardar el título del post para el log
     post_name = post.title
-
+    
+    # Eliminar el post de la base de datos
     db.session.delete(post)
     db.session.commit()
 
+    # Registrar la acción en el log
     current_app.logger.warning(f"Se ha borrado un post. Titulo: {post_name}, borrado por {current_user.email}")
-
+    
+    # Mostrar un mensaje flash al usuario
     flash('Your post has been deleted!', 'success')
+
+    # Redirigir al blog
     return redirect(url_for('main.blog'))

@@ -39,43 +39,50 @@
             </div>
           </div>
         </div>
-    
+
         <div class="navbar-end">
           <div class="navbar-item">
-            {% if current_user.is_authenticated %}
-              <div class="navbar-item">
-                <p>Hola, {{ current_user.username }}!</p>
-              </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                  More
-                </a>
-                <div class="navbar-dropdown">
-                  <a class="navbar-item" href="{{ url_for('author.new_post') }}">
-                      New Post
+              {% if current_user.is_authenticated %}
+                  <div class="navbar-item">
+                      <p>Hola, {{ current_user.username }}!</p>
+                  </div>
+                  <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link">
+                          More
+                      </a>
+                      <div class="navbar-dropdown">
+                          <a class="navbar-item" href="{{ url_for('author.new_post') }}">
+                              New Post
+                          </a>
+                          <a class="navbar-item" href="{{ url_for('admin.register') }}">
+                              Register new user
+                          </a>
+                          <a class="navbar-item" href="{{ url_for('admin.contact_messages') }}">
+                              Contact messages
+                          </a>
+                          <a class="navbar-item" href="{{ url_for('admin.send_newsletter_route') }}">
+                              Send a newsletter
+                          </a>
+                      </div>
+                  </div>
+                  <div class="navbar-item">
+                      <a class="button is-warning" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
+                  </div>
+                  <!-- Botón de cambio de tema -->
+                  <div class="navbar-item">
+                      <button id="theme-toggle" class="button is-light">
+                          <!-- El ícono será manejado por el script -->
+                      </button>
+                  </div>
+              {% else %}
+                  <a class="button is-primary" href="{{ url_for('auth.login') }}">
+                      Log in
                   </a>
-                  <a class="navbar-item" href="{{ url_for('admin.register') }}">
-                      Register new user
-                  </a>
-                  <a class="navbar-item" href="{{ url_for('admin.contact_messages') }}">
-                      Contact messages
-                  </a>
-                  <a class="navbar-item" href="{{ url_for('admin.send_newsletter_route') }}">
-                    Send a newsletter
-                  </a>
-                </div>
-              </div>
-              <div class="navbar-item">
-                <a class="button is-warning" href="{{ url_for('auth.logout') }}">Cerrar sesión</a>
-              </div>
-            {% else %}
-              <a class="button is-primary"  href="{{ url_for('auth.login') }}">
-                Log in
-              </a>
-            </div>
-            {% endif %}
+              {% endif %}
           </div>
-        </div>
+      </div>
+
+
       </div>
     </nav>
   </div>

@@ -1,40 +1,54 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container is-max-desktop">
-    <div class="section is-medium">
-        <h1 class="title is-2">Contacto</h1>
-        <form action="" method="post" class="box">
-            {{ form.hidden_tag() }}
-            <div class="field">
-                <label class="label">{{ form.name.label }}</label>
-                <div class="control">
-                    {{ form.name(class="input", type="text", placeholder="Tu nombre") }}
+<section class="section">
+    <div class="container">
+        <div class="columns is-centered">
+            <div class="column is-half">
+                <div class="box">
+                    
+                    <!-- Logo -->
+                    <figure class="has-text-centered" style="padding: 5%;">
+                        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" width="128">
+                    </figure>
+                    
+                    <!-- Título del formulario -->
+                    <h1 class="title is-2">Contacto</h1>
+
+                    <form action="" method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="field">
+                            <label class="label">{{ form.name.label }}</label>
+                            <div class="control">
+                                {{ form.name(class="input", type="text", placeholder="Tu nombre") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form.email.label }}</label>
+                            <div class="control">
+                                {{ form.email(class="input", type="email", placeholder="Tu correo electrónico") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form.subject.label }}</label>
+                            <div class="control">
+                                {{ form.subject(class="input", type="text", placeholder="El asunto del mensaje") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">{{ form.message.label }}</label>
+                            <div class="control">
+                                {{ form.message(class="textarea", placeholder="Escribe tu mensaje aquí") }}
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="field">
-                <label class="label">{{ form.email.label }}</label>
-                <div class="control">
-                    {{ form.email(class="input", type="email", placeholder="Tu correo electrónico") }}
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">{{ form.subject.label }}</label>
-                <div class="control">
-                    {{ form.subject(class="input", type="text", placeholder="El asunto del mensaje") }}
-                </div>
-            </div>
-            <div class="field">
-                <label class="label">{{ form.message.label }}</label>
-                <div class="control">
-                    {{ form.message(class="textarea", placeholder="Escribe tu mensaje aquí") }}
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

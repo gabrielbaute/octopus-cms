@@ -7,6 +7,7 @@
   
     <!-- Estilos -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bulma.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/all.min.css') }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
     
     <!-- Favicons -->
@@ -22,16 +23,15 @@
   {% include 'partials/_navbar.html' %}
 
   <!-- Flash messages -->
-  <div class="container">
-    <div class="section">
-      {% include 'partials/_flash_messages.html' %}
-    </div>
-  </div>
+  {% include 'partials/_flash_messages.html' %}
 
   <!-- Content -->
   {% block content %}  
   {% endblock %}
-    
+
+  <!-- Scripts -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
   <!-- Footer -->
   {% include 'partials/_footer.html' %}
 

@@ -3,47 +3,61 @@
 {% block content %}
     <section class="hero">
         <div class="hero-body">
-            <p class="title">Blog</p>
+            <p class="title">{{ app_name }}</p>
             <p class="subtitle">Contenido asombroso!</p>
         </div>
     </section>
-    {% if not posts %}
-    <div class="container">
-        <div class="notification is-warning">
-            No se han encontrado posts. ¡Sé el primero en crear uno!
-        </div>
-    </div>
-    {% endif %}
-    {% for post in posts %}
-    <div class="container is-max-desktop">
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <a href="{{ url_for('main.post', slug=post.slug) }}">
-                            <h2 class="title is-2">{{ post.title }}</h2>
-                        </a>
-                        <small>Escrito por <strong>{{ post.author.username }}</strong> el {{ post.date_posted.strftime('%d %b %Y') }}</small>
-                        <p>
-                            <br>
-                            {{ post.content_summary|safe }}
-                            <br>
-                            <a href="{{ url_for('main.post', slug=post.slug) }}">Leer más...</a>
-                        </p>
-                    </div>
-                    {% if current_user.is_authenticated and current_user.id == post.user_id %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns is-centered">
+                <div class="column is-half">
+                    
+                    <!-- Notifación en clase de que no haya una entrada publicada -->
+                    {% if not posts %}
                     <div class="container">
-                        <div class="media-right">
-                            <a href="{{ url_for('author.edit_post', post_id=post.id) }}" class="button is-small is-info">Editar</a>
-                            <a href="{{ url_for('author.delete_post', post_id=post.id) }}" class="button is-small is-danger">Eliminar</a>
+                        <div class="notification is-info">
+                            No se han encontrado posts. ¡Sé el primero en crear uno!
                         </div>
                     </div>
                     {% endif %}
+                    
+                    <!-- Lista de posts -->
+                    {% for post in posts %}
+                    
+                        <div class="box">
+                            <article class="media">
+                                <div class="media-content">
+                                    <div class="content">
+                                        <a href="{{ url_for('main.post', slug=post.slug) }}">
+                                            <h2 class="title is-2">{{ post.title }}</h2>
+                                        </a>
+                                        <small>Escrito por <strong>{{ post.author.username }}</strong> el {{ post.date_posted.strftime('%d %b %Y') }}</small>
+                                        <p>
+                                            <br>
+                                            {{ post.content_summary|safe }}
+                                            <br>
+                                            <a href="{{ url_for('main.post', slug=post.slug) }}">Leer más...</a>
+                                        </p>
+                                    </div>
+                                    {% if current_user.is_authenticated and current_user.id == post.user_id %}
+                                    <div class="container">
+                                        <div class="media-right">
+                                            <a href="{{ url_for('author.edit_post', post_id=post.id) }}" class="button is-small is-info">Editar</a>
+                                            <a href="{{ url_for('author.delete_post', post_id=post.id) }}" class="button is-small is-danger">Eliminar</a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </article>
+                        </div>
+                    
+                    {% endfor %}
+
                 </div>
-            </article>
+            </div>
         </div>
-    </div>
-    <br>
-    <br>
-    {% endfor %}
+    </section>
+
+
 {% endblock %}

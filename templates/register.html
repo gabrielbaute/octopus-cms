@@ -3,18 +3,28 @@
 <section class="section">
     <div class="container">
         <div class="columns is-centered">
+
             <!-- Columna del formulario -->
             <div class="column is-half">
                 <div class="box">
+                    
+                    <!-- Título del formulario -->
                     <h1 class="title is-2">
-                        Create new user
+                        Crear un nuevo usuario
                     </h1>
+
+                    <!-- Contenido del formulario -->
                     <form method="POST" action="" class="box">
                     {{ form.hidden_tag() }}
                     <div class="field">
-                        <p class="control has-icons-left has-icons-right">
-                            {{ form.username(class="input is-info", type="text", placeholder="Username") }}
-                        </p>
+                        <div class="control">
+                            <p class="control has-icons-left has-icons-right">
+                                {{ form.username(class="input is-info", type="text", placeholder="Username") }}
+                                <span class="icon is-medium is-left">
+                                    <i class="fa-solid fa-user-plus"></i>
+                                </span>
+                            </p>
+                        </div>
                     </div>
                     <div class="field">
                         <div class="control">
@@ -30,6 +40,9 @@
                         <div class="control">
                             <p class="control has-icons-left has-icons-right">
                                 {{ form.password(class="input is-success", type="password", placeholder="Password") }}
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                  </span>
                             </p>
                         </div>
                     </div>
@@ -37,6 +50,9 @@
                         <div class="control">
                             <p class="control has-icons-left has-icons-right">
                                 {{ form.confirm_password(class="input is-warning", type="password", placeholder="Confirm password") }}
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                  </span>
                             </p>
                         </div>
                     </div>
@@ -44,6 +60,9 @@
                         <div class="control">
                             <p class="control has-icons-left has-icons-right">
                                 {{ form.role(class="input", type="select") }}
+                                <span class="icon is-small is-left">
+                                    <i class="fa-solid fa-screwdriver-wrench"></i>
+                                </span>
                             </p>
                         </div>
                     </div>
@@ -56,6 +75,7 @@
                     </form>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>

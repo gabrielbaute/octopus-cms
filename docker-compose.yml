@@ -1,12 +1,34 @@
 version: '3.8'
 
 services:
-  web:
-    build: .
+  webserver:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: octopus-web
+    restart: unless-stopped
+    env_file: .env
     ports:
       - "${PORT:-5000}:${PORT:-5000}"
+    volumes:
+      - .:/app
+      - ./instance:/app/instance
+      - ./logs:/app/logs
     environment:
-      PORT: ${PORT:-5000}
-      DEBUG: ${DEBUG:-False}
-      SQLALCHEMY_DATABASE_URI: ${SQLALCHEMY_DATABASE_URI:-sqlite:////app/instance/yourdatabase.db}
-      SECRET_KEY: ${SECRET_KEY:-una_clave_secreta_segura}
+      - FLASK_ENV=${FLASK_ENV:-production}
+      - PORT=${PORT:-5000}
+      - DEBUG=${DEBUG:-False}
+      - SQLALCHEMY_DATABASE_URI=${SQLALCHEMY_DATABASE_URI:-sqlite:////app/instance/octopus.db} 
+      - SECRET_KEY=${SECRET_KEY:-your_secure_key_here}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:${PORT:-5000}/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    networks:
+      - octopus-network
+
+networks:
+  octopus-network:
+    driver: bridge

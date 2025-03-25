@@ -18,7 +18,7 @@ class Config:
     # Flask server
     BASEDIR = BASE_DIR
     APP_NAME = os.getenv('APP_NAME', 'Octopus')
-    CMS_VERSION = "0.1.0"
+    CMS_VERSION = "0.2.0"
     PORT = os.environ.get("PORT")
     DEBUG = os.environ.get("DEBUG")
     LANGUAGE = os.environ.get("LANGUAGE")

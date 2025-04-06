@@ -12,7 +12,7 @@ Este proyecto de blog, desarrollado con **Flask** como backend en Python y **Bul
 ### Características Principales
 
 - **Operaciones CRUD**: Capacidad completa para Crear, Leer, Actualizar y Eliminar posts del blog.
-- **Gestión de Usuarios**: Dos niveles de usuario, `author` y `admin`, cada uno con permisos específicos.
+- **Gestión de Usuarios**: Sistema de usuarios y roles semejante a wordpress.
 - **Edición en Markdown**: Los posts pueden ser editados utilizando Markdown, mejorando la flexibilidad y control sobre el contenido.
 - **Programación de Publicaciones**: Los posts pueden ser programados para publicarse en una fecha y hora futura.
 - **Newsletter**: Envío de correos masivos a suscriptores utilizando servicios SMTP de Gmail, Outlook, o cualquier otro proveedor. La configuración del correo se maneja a través de variables de entorno.

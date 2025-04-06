@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="container">
+      <section class="hero is-danger is-bold">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">
+              ERROR 403 - Acceso restringido
+            </h1>
+            <h2 class="subtitle">
+              Lo sentimos, pero parece que estás tratando de acceder a una página a la que no tienes acceso. Por favor, ponte en contacto con el administrador de sistema.
+            </h2>
+          </div>
+        </div>
+      </section>
+      <div class="section">
+        <div class="container">
+          <a class="button is-info" href="{{ url_for('main.index') }}">¿Regresar al inicio?</a>
+        </div>
+      </div>
+    </div>
+</section>
+{% endblock %}

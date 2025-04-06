@@ -1,5 +1,5 @@
 from database import db
-from database.models import Post, ContactMessage, Subscriber
+from database.models import Post, ContactMessage, User
 from server.forms import ContactForm, SubscriptionForm
 from mail import send_confirmation_newsletter_email, decode_email_token
 
@@ -58,7 +58,7 @@ def subscribe():
     form = SubscriptionForm()
 
     if form.validate_on_submit():
-        subscriber = Subscriber(name=form.name.data, email=form.email.data)
+        subscriber = User(name=form.name.data, email=form.email.data, role='subscriber')
     
         db.session.add(subscriber)
         db.session.commit()
@@ -78,9 +78,9 @@ def confirm_subscription(token):
         flash('El enlace de confirmación no es válido o ha expirado. Debe volver a suscribirse.', 'danger')
         return redirect(url_for('main.subscribe'))
     
-    subscriber = Subscriber.query.get(subscriber_id)
+    subscriber = User.query.get(subscriber_id)
 
-    if subscriber.is_active:
+    if subscribe.is_active:
         flash('Ya te has suscrito, puedes seguir navegando!', 'success')
         return redirect(url_for('main.index'))
     

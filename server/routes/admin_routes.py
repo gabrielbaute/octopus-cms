@@ -1,7 +1,7 @@
 from database import db
 from database.models import User, ContactMessage, Post
 from server.forms import RegistrationForm, NewsletterForm
-from server.roles import admin_required
+from server.permissions import permission_required
 from mail import send_newsletter_mail
 
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -20,7 +20,7 @@ admin_bp = Blueprint('admin', __name__, template_folder='templates')
 
 @admin_bp.route('/register', methods=['GET', 'POST'])
 @login_required
-@admin_required
+@permission_required('admin')
 def register():
     form = RegistrationForm()
     new_username = form.username.data
@@ -56,7 +56,7 @@ def register():
 
 @admin_bp.route('/send_newsletter', methods=['GET', 'POST'])
 @login_required
-@admin_required
+@permission_required('admin')
 def send_newsletter_route():
     form = NewsletterForm()
     if request.method == 'POST':
@@ -69,7 +69,7 @@ def send_newsletter_route():
 
 @admin_bp.route('/contact-messages')
 @login_required
-@admin_required
+@permission_required('admin')
 def contact_messages():
     messages = ContactMessage.query.order_by(ContactMessage.date_sent.desc()).all()
     return render_template('admin/contact_messages.html', messages=messages)

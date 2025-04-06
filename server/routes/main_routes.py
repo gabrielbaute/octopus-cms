@@ -22,20 +22,20 @@ def index():
 
 @main_bp.route('/about')
 def about():
-    return render_template('about.html')
+    return render_template('public/about.html')
 
 @main_bp.route('/blog')
 def blog():
     posts = Post.query.filter((Post.publish_date <= datetime.utcnow()) | (Post.publish_date == None)).order_by(Post.date_posted.desc()).all()
     for post in posts:
         post.content_summary = ' '.join(post.content.split()[:60]) + '...' # Mostrar las primeras 20 palabras
-    return render_template('blog.html', posts=posts)
+    return render_template('public/blog.html', posts=posts)
 
 @main_bp.route('/post/<slug>')
 def post(slug):
     post = Post.query.filter_by(slug=slug).first_or_404()
     post.content = markdown.markdown(post.content)
-    return render_template('post.html', post=post)
+    return render_template('public/post.html', post=post)
 
 @main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():
@@ -51,7 +51,7 @@ def contact():
         db.session.commit()
         flash('Tu mensaje ha sido enviado. ¡Gracias por contactarnos!', 'success')
         return redirect(url_for('main.index'))
-    return render_template('contact.html', title='Contacto', form=form)
+    return render_template('public/contact.html', title='Contacto', form=form)
 
 @main_bp.route('/subscribe', methods=['GET', 'POST'])
 def subscribe():
@@ -68,7 +68,7 @@ def subscribe():
         flash('¡Gracias por suscribirte a nuestra newsletter!', 'success')
         return redirect(url_for('main.index'))
     
-    return render_template('subscribe.html', form=form)
+    return render_template('public/subscribe.html', form=form)
 
 @main_bp.route('/confirm_subscription/<token>')
 def confirm_subscription(token):

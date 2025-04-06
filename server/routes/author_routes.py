@@ -31,7 +31,7 @@ def new_post():
     
         return redirect(url_for('main.blog'))
     
-    return render_template('new_post.html', title='Nuevo Post', form=form)
+    return render_template('main/new_post.html', title='Nuevo Post', form=form)
 
 @author_bp.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
@@ -64,7 +64,7 @@ def edit_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
 
-    return render_template('edit_post.html', title='Editar Post', form=form)
+    return render_template('main/edit_post.html', title='Editar Post', form=form)
 
 @author_bp.route('/delete-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required

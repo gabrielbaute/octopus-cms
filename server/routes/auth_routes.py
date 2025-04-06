@@ -48,7 +48,7 @@ def login():
         except Exception as e:
             current_app.logger.error(f"Error al iniciar sesion: {e}")
 
-    return render_template('login.html', title='Login', form=form)
+    return render_template('auth/login.html', title='Login', form=form)
 
 @auth_bp.route('/logout')
 @login_required
@@ -74,7 +74,7 @@ def forgot_password():
         flash('Si existe una cuenta con ese correo electrónico, se ha enviado un enlace de restablecimiento de contraseña.', 'success')
         
         return redirect(url_for('auth.login'))
-    return render_template('forgot_password.html', form=form)
+    return render_template('auth/forgot_password.html', form=form)
 
 @auth_bp.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
@@ -100,4 +100,4 @@ def reset_password(token):
 
         return redirect(url_for('auth.login'))
 
-    return render_template('reset_password.html', form=form)
+    return render_template('auth/reset_password.html', form=form)

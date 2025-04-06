@@ -52,7 +52,7 @@ def register():
 
             flash('The user account has been created!', 'success')
             return redirect(url_for('auth.login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('admin/register.html', title='Register', form=form)
 
 @admin_bp.route('/send_newsletter', methods=['GET', 'POST'])
 @login_required
@@ -65,11 +65,11 @@ def send_newsletter_route():
         #send_newsletter_mail(post)
         flash('Newsletter enviado exitosamente.', 'success')
         return redirect(url_for('index'))
-    return render_template('send_newsletter.html', form=form)
+    return render_template('admin/send_newsletter.html', form=form)
 
 @admin_bp.route('/contact-messages')
 @login_required
 @admin_required
 def contact_messages():
     messages = ContactMessage.query.order_by(ContactMessage.date_sent.desc()).all()
-    return render_template('contact_messages.html', messages=messages)
+    return render_template('admin/contact_messages.html', messages=messages)

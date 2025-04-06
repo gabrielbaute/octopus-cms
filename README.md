@@ -12,6 +12,7 @@ Este proyecto de CMS, desarrollado con **Flask** como backend en Python y **Bulm
 ### Características Principales
 
 - **Operaciones CRUD**: Capacidad completa para Crear, Leer, Actualizar y Eliminar posts del blog.
+- **Gestión de Usuarios**: Sistema de usuarios y roles semejante a wordpress.
 - **Gestión de Usuarios**: Dos niveles de usuario, `author` y `admin`, cada uno con permisos específicos. Los usuarios pueden recuperar su contraseña solicitando un token a su correo.
 - **Edición en Markdown**: Los posts pueden ser editados utilizando Markdown, mejorando la flexibilidad y control sobre el contenido.
 - **Programación de Publicaciones**: Los posts pueden ser programados para publicarse en una fecha y hora futura.

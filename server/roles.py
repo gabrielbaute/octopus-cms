@@ -2,18 +2,12 @@ from functools import wraps
 from flask import abort
 from flask_login import current_user
 
-def admin_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if current_user.role != 'admin':
-            abort(403)  # Forbidden
-        return f(*args, **kwargs)
-    return decorated_function
-
-def author_required(f):
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if current_user.role not in ['admin', 'author']:
-            abort(403)  # Forbidden
-        return f(*args, **kwargs)
-    return decorated_function
+def role_required(role):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.is_authenticated or not current_user.has_role(role):
+                abort(403)
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator

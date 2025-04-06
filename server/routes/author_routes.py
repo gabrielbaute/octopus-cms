@@ -6,7 +6,7 @@ from server.forms import NewPostForm, EditPostForm
 from database import db
 from database.models import Post
 from mail import send_newsletter_mail
-from server.roles import author_required
+from server.permissions import permission_required
 
 
 author_bp = Blueprint('author', __name__, template_folder='templates')
@@ -14,7 +14,7 @@ author_bp = Blueprint('author', __name__, template_folder='templates')
 # Rutas de gestión de posts
 @author_bp.route('/new-post', methods=['GET', 'POST'])
 @login_required
-@author_required
+@permission_required('author')
 def new_post():
     form = NewPostForm()
 
@@ -31,10 +31,11 @@ def new_post():
     
         return redirect(url_for('main.blog'))
     
-    return render_template('new_post.html', title='Nuevo Post', form=form)
+    return render_template('main/new_post.html', title='Nuevo Post', form=form)
 
 @author_bp.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
+@permission_required('author')
 def edit_post(post_id):
 
     # Buscar y validar la existencia del post
@@ -64,10 +65,11 @@ def edit_post(post_id):
         form.title.data = post.title
         form.content.data = post.content
 
-    return render_template('edit_post.html', title='Editar Post', form=form)
+    return render_template('main/edit_post.html', title='Editar Post', form=form)
 
 @author_bp.route('/delete-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
+@permission_required('author')
 def delete_post(post_id):
     # Obtener el post o devolver un error 404 si no existe
     post = Post.query.get_or_404(post_id)

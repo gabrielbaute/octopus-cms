@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_migrate import Migrate
 
-from config import Config
+from config import Config, create_initial_super_admin, initialize_permissions_system
 from database import init_db, db
 from database.models import User
 from mail import mail
@@ -9,7 +9,7 @@ from server_logging import setup_logging
 
 from server.routes import register_blueprints
 from server.server_extensions import login_manager
-from server.loadadmin import create_admin_user
+from server.errors_handler import register_error_handlers
 
 
 def create_app():
@@ -33,14 +33,14 @@ def create_app():
         return User.query.get(user_id)
 
     register_blueprints(app)
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('404.html'), 404
+    print("BluePrints registrados") # Para debugging
+    register_error_handlers(app)
+    print("Error handlers registrados")
 
     with app.app_context():
         db.create_all()
-        create_admin_user()
+        initialize_permissions_system()
+        create_initial_super_admin()
         app.logger.info(f"Server listening on port: {Config.PORT}")
 
     # Hacer que APP_NAME esté disponible globalmente en las plantillas

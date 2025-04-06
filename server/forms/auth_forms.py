@@ -13,7 +13,15 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = SelectField('Role', choices=[('author', 'Author'), ('admin', 'Admin')], validators=[DataRequired()])
+    role = SelectField(
+        'Role',
+        choices=[
+            ('admin', 'Admin'),
+            ('editor', 'Editor'),
+            ('author', 'Author'),
+            ('contributor', 'Contributor'),
+            ('subscriber', 'Subscriber')],
+        validators=[DataRequired()])
     submit = SubmitField('Create')
 
 class ForgotPasswordForm(FlaskForm):

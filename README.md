@@ -1,4 +1,4 @@
-# Octopus CMS v0.2.0 Beta
+# Octopus CMS v0.3.0 Beta
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.13-blue.svg)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green.svg)
@@ -13,7 +13,6 @@ Este proyecto de CMS, desarrollado con **Flask** como backend en Python y **Bulm
 
 - **Operaciones CRUD**: Capacidad completa para Crear, Leer, Actualizar y Eliminar posts del blog.
 - **Gestión de Usuarios**: Sistema de usuarios y roles semejante a wordpress.
-- **Gestión de Usuarios**: Dos niveles de usuario, `author` y `admin`, cada uno con permisos específicos. Los usuarios pueden recuperar su contraseña solicitando un token a su correo.
 - **Edición en Markdown**: Los posts pueden ser editados utilizando Markdown, mejorando la flexibilidad y control sobre el contenido.
 - **Programación de Publicaciones**: Los posts pueden ser programados para publicarse en una fecha y hora futura.
 - **Newsletter**: Envío de correos masivos a suscriptores utilizando servicios SMTP de Gmail, Outlook, o cualquier otro proveedor. La configuración del correo se maneja a través de variables de entorno.

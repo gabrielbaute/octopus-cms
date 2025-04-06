@@ -1,7 +1,7 @@
 from flask_mail import Message
 from flask import render_template
 
-from database.models import Post, Subscriber
+from database.models import Post, User
 from .config_mail import appname, mail
 
 
@@ -35,7 +35,7 @@ def send_newsletter_mail(post):
     Envía un email con el último post publicado de forma masiva a todos los usuarios suscritos
     """
 
-    subscribers = Subscriber.query.filter_by(is_active=True).all()
+    subscribers = User.query.filter_by(role='subscriber', is_active=True).all()
     
     for subscriber in subscribers:
         try:

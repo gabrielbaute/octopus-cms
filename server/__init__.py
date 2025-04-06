@@ -10,6 +10,7 @@ from server_logging import setup_logging
 from server.routes import register_blueprints
 from server.server_extensions import login_manager
 from server.loadadmin import create_admin_user
+from server.errors_handler import register_error_handlers
 
 
 def create_app():
@@ -33,10 +34,7 @@ def create_app():
         return User.query.get(user_id)
 
     register_blueprints(app)
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template('errors/404.html'), 404
+    register_error_handlers(app)
 
     with app.app_context():
         db.create_all()

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <h1 class="title is-1">Gestionar Tags</h1>
+    <p class="subtitle is-4">Administra las etiquetas para tus posts</p>
+</div>
+
+<div class="container is-max-desktop">
+    <section class="section">
+        <div class="columns">
+            <!-- Columna para crear nuevos tags -->
+            <div class="column is-half">
+                <div class="box">
+                    <h2 class="title is-3">Crear Nuevo Tag</h2>
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="field">
+                            <label class="label">{{ form.name.label }}</label>
+                            <div class="control">
+                                {{ form.name(class="input", placeholder="Ej: Python, Flask, Web Development") }}
+                            </div>
+                        </div>
+                        
+                        <div class="field">
+                            <div class="control">
+                                {{ form.submit(class="button is-primary") }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Columna para listar tags existentes -->
+            <div class="column is-half">
+                <div class="box">
+                    <h2 class="title is-3">Tags Existentes</h2>
+                    
+                    {% if tags %}
+                    <div class="tags are-medium">
+                        {% for tag in tags %}
+                        <span class="tag is-primary is-light is-large">
+                            {{ tag.name }}
+                            <span class="tag is-rounded is-info ml-1">{{ tag.posts.count() }}</span>
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    <p>No hay tags creados aún.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

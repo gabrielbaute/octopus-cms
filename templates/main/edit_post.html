@@ -7,22 +7,39 @@
 <div class="container is-max-desktop">
     <div class="section">
         <form action="" method="post" class="box">
-            {{ form.hidden_tag() }}
+            {{ post_form.hidden_tag() }}
+            
+            <!-- Título -->
             <div class="field">
-                <label class="label">{{ form.title.label }}</label>
+                <label class="label">{{ post_form.title.label }}</label>
                 <div class="control">
-                    {{ form.title(class="input", type="text", placeholder="Un título atractivo para tu post") }}
+                    {{ post_form.title(class="input", type="text", placeholder="Un título atractivo para tu post") }}
                 </div>
             </div>
+            
+            <!-- Contenido -->
             <div class="field">
-                <label class="label">{{ form.content.label }}</label>
+                <label class="label">{{ post_form.content.label }}</label>
                 <div class="control">
-                    {{ form.content(class="textarea custom-textarea", id="content", style="width: 100%; height: 300px;", placeholder="Contenido del post (puede incluir HTML)") }}
+                    {{ post_form.content(class="textarea custom-textarea", id="content", style="width: 100%; height: 300px;", placeholder="Contenido del post (puede incluir HTML)") }}
                 </div>
             </div>
+            
+            <!-- Tags - Select múltiple con Bulma -->
+            <div class="field">
+                <label class="label">{{ tags_form.tags.label }}</label>
+                <div class="control">
+                    <div class="select is-multiple">
+                        {{ tags_form.tags(size=5) }}
+                    </div>
+                </div>
+                <p class="help">Mantén presionado Ctrl (Windows) o Command (Mac) para seleccionar múltiples tags</p>
+            </div>
+            
+            <!-- Botón de enviar -->
             <div class="field">
                 <div class="control">
-                    {{ form.submit(class="button is-primary is-fullwidth", type="submit") }}
+                    {{ post_form.submit(class="button is-primary is-fullwidth", type="submit") }}
                 </div>
             </div>
         </form>

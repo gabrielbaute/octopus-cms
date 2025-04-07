@@ -1,0 +1,23 @@
+{# templates/seo/sitemap.xml #}
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- URLs estáticas -->
+    {% for url in static_urls %}
+    <url>
+        <loc>{{ url_for(url['loc'], _external=True) }}</loc>
+        <lastmod>{{ now }}</lastmod>
+        <changefreq>{{ url['changefreq'] }}</changefreq>
+        <priority>{{ url['priority'] }}</priority>
+    </url>
+    {% endfor %}
+    
+    <!-- Posts del blog -->
+    {% for post in posts %}
+    <url>
+        <loc>{{ url_for('main.post', slug=post.slug, _external=True) }}</loc>
+        <lastmod>{{ post.publish_date.strftime('%Y-%m-%d') }}</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>{{ '0.8' if loop.index < 50 else '0.6' }}</priority>
+    </url>
+    {% endfor %}
+</urlset>

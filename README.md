@@ -1,4 +1,4 @@
-# Octopus CMS v0.3.0 Beta
+# Octopus CMS
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Python](https://img.shields.io/badge/Python-3.13-blue.svg)
 ![Flask](https://img.shields.io/badge/Framework-Flask-green.svg)
@@ -17,9 +17,9 @@ Este proyecto de CMS, desarrollado con **Flask** como backend en Python y **Bulm
 - **Programación de Publicaciones**: Los posts pueden ser programados para publicarse en una fecha y hora futura.
 - **Newsletter**: Envío de correos masivos a suscriptores utilizando servicios SMTP de Gmail, Outlook, o cualquier otro proveedor. La configuración del correo se maneja a través de variables de entorno.
 - **Suscripción a Newsletter**: Los usuarios pueden suscribirse para recibir actualizaciones y newsletters. Los correos sólo se envían a los usuarios que hayan confirmado su suscripción previamente, algo que se hace mediante un token enviado al correo del ususario y que expira a las 24 horas.
-- **Sistema de Roles**: Implementación de roles de usuario para autor y administrador, manejando permisos y acceso a funcionalidades.
 - **Interfaz con Bulma**: Utilización de Bulma para un diseño limpio y responsivo, garantizando una buena experiencia de usuario.
 - **Dark y Light theme**: Los usuarios y lectores pueden seleccionar el theme para explorar o emplear el Site.
+- **SEO Friendly**: Gestión de etiquetas y tags, urls amigables con slugify, generación dinámica de robot.txt y sitemap.xml
 - **Deploy en docker**: De momento, el proyecto puede desplegarse usando contenedores docker y empleando Waitress como WSGI en producción.
 
 ### Enfoque en Python

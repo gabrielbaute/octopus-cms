@@ -6,6 +6,7 @@ from server.forms import NewPostForm, EditPostForm, PostTagsForm, TagForm
 from database import db
 from database.models import Post, Tag
 from mail import send_newsletter_mail
+from utils import ping_google
 from server.permissions import permission_required
 
 
@@ -40,6 +41,7 @@ def new_post():
         current_app.logger.info(f"Nueva entrada publicada por {current_user.email}")
         flash('Tu post ha sido creado!', 'success')
         send_newsletter_mail(post)
+        ping_google()
         
         return redirect(url_for('main.blog'))
     
@@ -75,6 +77,8 @@ def edit_post(post_id):
         db.session.commit()
         current_app.logger.info(f"Post editado. Autor: {current_user.email}, Post: {post.title}")
         flash('Tu post ha sido actualizado!', 'success')
+        ping_google()
+        
         return redirect(url_for('main.blog'))
     
     elif request.method == 'GET':

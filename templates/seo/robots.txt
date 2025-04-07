@@ -1,0 +1,9 @@
+{# templates/seo/robots.txt #}
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /account/
+Disallow: /private/
+
+# Sitemaps
+Sitemap: {{ url_for('seo.sitemap', _external=True) }}

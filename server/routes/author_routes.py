@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, request, redirect, url_for, flash,
 from flask_login import current_user, login_required
 from datetime import datetime
 
-from server.forms import NewPostForm, EditPostForm
+from server.forms import NewPostForm, EditPostForm, PostTagsForm, TagForm
 from database import db
-from database.models import Post
+from database.models import Post, Tag
 from mail import send_newsletter_mail
 from server.permissions import permission_required
 
@@ -16,56 +16,97 @@ author_bp = Blueprint('author', __name__, template_folder='templates')
 @login_required
 @permission_required('author')
 def new_post():
-    form = NewPostForm()
-
-    if form.validate_on_submit():
-        publish_date = form.publish_date.data if form.publish_date.data else datetime.utcnow()
-        post = Post(title=form.title.data, content=form.content.data, user_id=current_user.id, publish_date=publish_date)
+    post_form = NewPostForm()
+    tags_form = PostTagsForm()
     
+    if post_form.validate_on_submit():
+        publish_date = post_form.publish_date.data if post_form.publish_date.data else datetime.utcnow()
+        post = Post(
+            title=post_form.title.data, 
+            content=post_form.content.data, 
+            user_id=current_user.id, 
+            publish_date=publish_date
+        )
+        
+        # Añadir tags seleccionados
+        for tag_id in tags_form.tags.data:
+            tag = Tag.query.get(tag_id)
+            if tag:
+                post.tags.append(tag)
+        
         db.session.add(post)
         db.session.commit()
 
         current_app.logger.info(f"Nueva entrada publicada por {current_user.email}")
-        flash('Your post has been created!', 'success')
+        flash('Tu post ha sido creado!', 'success')
         send_newsletter_mail(post)
-    
+        
         return redirect(url_for('main.blog'))
     
-    return render_template('main/new_post.html', title='Nuevo Post', form=form)
+    return render_template('main/new_post.html', 
+                         title='Nuevo Post', 
+                         post_form=post_form, 
+                         tags_form=tags_form)
 
 @author_bp.route('/edit-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 @permission_required('author')
 def edit_post(post_id):
-
-    # Buscar y validar la existencia del post
-    post = Post.query.get(post_id)
-    if not post:
-        flash('El post no existe.', 'danger')
-        return redirect(url_for('main.blog'))
-
-    # Verificar si el usuario actual es el autor del post o un administrador
+    post = Post.query.get_or_404(post_id)
+    
+    # Verificar permisos
     if post.user_id != current_user.id and current_user.role != 'admin':
-        abort(403)  # Forbidden
-
-    # Editar el post
-    form = EditPostForm()
-    if form.validate_on_submit():
-        post.title = form.title.data
-        post.content = form.content.data
+        abort(403)
+    
+    post_form = EditPostForm()
+    tags_form = PostTagsForm()
+    
+    if post_form.validate_on_submit():
+        post.title = post_form.title.data
+        post.content = post_form.content.data
+        
+        # Actualizar tags
+        post.tags = []
+        for tag_id in tags_form.tags.data:
+            tag = Tag.query.get(tag_id)
+            if tag:
+                post.tags.append(tag)
         
         db.session.commit()
         current_app.logger.info(f"Post editado. Autor: {current_user.email}, Post: {post.title}")
-        flash('Your post has been updated!', 'success')
-        
+        flash('Tu post ha sido actualizado!', 'success')
         return redirect(url_for('main.blog'))
     
-    # Trae la data del post y la llena dentro del formulario
     elif request.method == 'GET':
-        form.title.data = post.title
-        form.content.data = post.content
+        post_form.title.data = post.title
+        post_form.content.data = post.content
+        tags_form.tags.data = [tag.id for tag in post.tags]
+    
+    return render_template('main/edit_post.html', 
+                         title='Editar Post', 
+                         post_form=post_form, 
+                         tags_form=tags_form,
+                         post=post)
 
-    return render_template('main/edit_post.html', title='Editar Post', form=form)
+# Nueva ruta para gestión de tags
+@author_bp.route('/manage-tags', methods=['GET', 'POST'])
+@login_required
+@permission_required('editor')  # Solo editores y admins pueden gestionar tags
+def manage_tags():
+    form = TagForm()
+    
+    if form.validate_on_submit():
+        tag = Tag(name=form.name.data)
+        db.session.add(tag)
+        db.session.commit()
+        flash(f'Tag "{tag.name}" creado exitosamente!', 'success')
+        return redirect(url_for('author.manage_tags'))
+    
+    tags = Tag.query.order_by(Tag.name).all()
+    return render_template('main/manage_tags.html', 
+                         title='Gestionar Tags', 
+                         form=form, 
+                         tags=tags)
 
 @author_bp.route('/delete-post/<int:post_id>', methods=['GET', 'POST'])
 @login_required

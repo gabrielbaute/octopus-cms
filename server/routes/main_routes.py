@@ -1,5 +1,5 @@
 from database import db
-from database.models import Post, ContactMessage, User
+from database.models import Post, ContactMessage, User, Tag
 from server.forms import ContactForm, SubscriptionForm
 from mail import send_confirmation_newsletter_email, decode_email_token
 
@@ -36,6 +36,12 @@ def post(slug):
     post = Post.query.filter_by(slug=slug).first_or_404()
     post.content = markdown.markdown(post.content)
     return render_template('public/post.html', post=post)
+
+@main_bp.route('/tag/<string:tag_slug>')
+def posts_by_tag(tag_slug):
+    tag = Tag.query.filter_by(slug=tag_slug).first_or_404()
+    posts = tag.posts.all()
+    return render_template('public/posts_by_tag.html', tag=tag, posts=posts)
 
 @main_bp.route('/contact', methods=['GET', 'POST'])
 def contact():

@@ -14,6 +14,7 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     slug = db.Column(db.String(100), unique=True, nullable=False)
     author = db.relationship('User', backref=db.backref('posts', lazy=True))
+    is_deleted = db.Column(db.Boolean, default=False)
     
     tags = db.relationship('Tag', secondary=post_tags, 
                           backref=db.backref('posts', lazy='dynamic'))
